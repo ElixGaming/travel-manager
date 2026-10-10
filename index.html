@@ -50,7 +50,10 @@ function parseFlightObject(obj,raw){
   const flightNumber=pick(general,['flight_number','fltnum'])||pick(f,['flight_number','fltnum']);
   // SimBrief's callsign is the complete ATC callsign (e.g. TST1234).
   // Prefer it over flight_number, which may contain only the numeric part.
-  const callsign=pick(general,['callsign','atc_callsign'])||pick(f,['callsign','atc_callsign']);
+ const callsign =
+  pick(general, ['callsign', 'atc_callsign', 'icao_airline']) ||
+  pick(f, ['callsign', 'atc_callsign']) ||
+  '';
   const flightName=callsign||(airline&&flightNumber?airline+flightNumber:(flightNumber||'Plan SimBrief'));
   let route=pick(general,['route','route_string'])||pick(f,['route','flightplan.route'])||'';
   if(!route&&navlog.fix){const fixes=Array.isArray(navlog.fix)?navlog.fix:[navlog.fix];route=fixes.map(x=>x.ident||x.name).filter(Boolean).join(' ')}
