@@ -5,6 +5,42 @@
     {
       "name": "LFPO — Aerodrome Chart 2",
       "url": "charts/LFPO/lfpo%20aerodrome%20chart%202.pdf"
+    },
+    {
+      "name": "LFPO — Aerodrome Chart Parking 1",
+      "url": "charts/LFPO/Aerodrome%20Chart%20Parking%201.pdf"
+    },
+    {
+      "name": "LFPO — FNA RWY02 ILS1",
+      "url": "charts/LFPO/FNA%20RWY02%20ILS1.pdf"
+    },
+    {
+      "name": "LFPO — FNA RWY06 ILS123",
+      "url": "charts/LFPO/FNA%20RWY06%20ILS123.pdf"
+    },
+    {
+      "name": "LFPO — FNA RWY07 ILS123",
+      "url": "charts/LFPO/FNA%20RWY07%20ILS123.pdf"
+    },
+    {
+      "name": "LFPO — FNA RWY20 RNP",
+      "url": "charts/LFPO/FNA%20RWY20%20RNP.pdf"
+    },
+    {
+      "name": "LFPO — FNA RWY24 ILS123",
+      "url": "charts/LFPO/FNA%20RWY24%20ILS123.pdf"
+    },
+    {
+      "name": "LFPO — FNA RWY25 ILS123",
+      "url": "charts/LFPO/FNA%20RWY25%20ILS123.pdf"
+    },
+    {
+      "name": "LFPO — Mémo départ",
+      "url": "charts/LFPO/LFPO_Memo_DPT.pdf"
+    },
+    {
+      "name": "LFPO — Paris SSR",
+      "url": "charts/LFPO/paris_ssr.pdf"
     }
   ]
 }
