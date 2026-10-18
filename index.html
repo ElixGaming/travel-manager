@@ -74,11 +74,11 @@
 <section id="page-library" class="page"><div class="hero"><div class="eyebrow">LOCAL FLIGHT DATA</div><h2>Flight Library</h2><p class="muted">Les données sont enregistrées sur cet appareil. Exporte une sauvegarde pour les transférer vers un autre appareil.</p><div class="actions"><button id="backup-export" class="btn primary">⇧ Exporter une sauvegarde</button><button id="backup-import-btn" class="btn">⇩ Restaurer une sauvegarde</button><input id="backup-import" type="file" accept="application/json,.json" class="hidden"></div></div><div class="grid"><article class="card full"><div class="row"><h3>Plans de vol</h3><span class="pill" id="flight-total">0 vols</span></div><div id="flight-list" class="list"><div class="empty">Aucun vol sauvegardé.</div></div></article><article class="card full"><div class="row"><h3>Archives METAR</h3><span class="pill" id="metar-total-2">0 entrées</span></div><div id="library-metar-list" class="list"><div class="empty">Aucun METAR archivé.</div></div></article><article class="card full"><h3>Gestion des données</h3><p class="muted small">Les données restent dans le stockage du navigateur de cette tablette. Effacer les données du navigateur peut les supprimer : fais régulièrement une sauvegarde JSON.</p><div class="actions"><button id="data-reset" class="btn danger">Effacer toutes les données locales</button></div></article></div></section>
 <section id="page-charts" class="page">
   <div class="hero">
-    <div class="eyebrow">DOCUMENTS · LOCAL LIBRARY</div>
-    <h2>Airport Charts</h2>
+    <div class="eyebrow">DOCUMENTS · HOSTED LIBRARY</div>
+    <h2>Cartes PDF</h2>
     <p class="muted">
-      Importe et consulte tes cartes d’aéroports au format PDF.
-      Les fichiers sont conservés sur cet appareil.
+      Consulte tes cartes d’aéroports hébergées avec Travel Manager.
+      Les mêmes documents sont accessibles depuis tes différents appareils.
     </p>
   </div>
 
@@ -92,46 +92,31 @@
       <div class="chart-tabs" id="chart-tabs"></div>
 
       <div class="notice">
-        DTTX et LFPO sont toujours disponibles.
-        Tu peux ajouter d’autres dossiers selon tes besoins.
-      </div>
-
-      <div class="field">
-        <label for="chart-upload">Importer des fichiers PDF</label>
-        <input
-          id="chart-upload"
-          type="file"
-          accept="application/pdf,.pdf"
-          multiple
-        >
+        Les fichiers sont hébergés avec le site. Pour ajouter une carte,
+        téléverse le PDF dans le dépôt GitHub puis référence-le dans
+        charts/catalog.json.
       </div>
 
       <p id="chart-message" class="muted small" aria-live="polite">
-        Choisis des PDF à ajouter au dossier actif.
+        Chargement du catalogue…
       </p>
-
-      <div class="actions">
-        <button id="chart-add-section" class="btn">
-          ＋ Ajouter un dossier
-        </button>
-      </div>
 
       <div class="divider"></div>
 
       <h3 id="chart-section-title">Cartes DTTX</h3>
       <div id="chart-list">
-        <div class="empty">Aucun PDF dans ce dossier.</div>
+        <div class="empty">Chargement des cartes…</div>
       </div>
     </article>
 
     <article class="card full">
       <div class="row">
         <h3 id="pdf-viewer-title">Lecteur PDF</h3>
-        <span class="pill">LOCAL</span>
+        <span class="pill">HÉBERGÉ</span>
       </div>
 
       <div id="pdf-viewer-empty" class="empty">
-        Sélectionne un PDF dans la liste pour l’afficher ici.
+        Sélectionne une carte dans la liste pour l’afficher ici.
       </div>
 
       <iframe
@@ -196,93 +181,21 @@ async function fetchMetar(){const icao=$('metar-icao').value.trim().toUpperCase(
 function saveMetar(m){if(!m)return;state.metars.unshift({...m,id:m.id||uid(),savedAt:new Date().toISOString()});state.metars=state.metars.slice(0,500);persist();$('metar-message').textContent='METAR archivé localement.'} $('metar-fetch').addEventListener('click',fetchMetar);$('metar-save-manual').addEventListener('click',()=>{const icao=$('metar-icao').value.trim().toUpperCase();if(!/^[A-Z0-9]{4}$/.test(icao)){alert('Saisis un code OACI à 4 caractères.');return}const raw=prompt('Colle ici la ligne METAR complète :');if(!raw||!raw.trim())return;currentMetar={id:uid(),icao,raw:raw.trim(),observed:'Heure non vérifiée',source:'Saisie manuelle',decoded:'Observation saisie par l’utilisateur, non vérifiée'};$('metar-current').innerHTML=`<div class="item-title">${esc(icao)}</div><div class="weather">${esc(raw.trim())}</div><div class="item-meta">Saisie manuelle — non vérifiée</div><div class="actions"><button id="save-current-metar" class="btn primary">＋ Archiver ce METAR</button></div>`;$('save-current-metar').addEventListener('click',()=>saveMetar(currentMetar))});
 // Export/restore backup for migration between devices.
 $('backup-export').addEventListener('click',()=>{const blob=new Blob([JSON.stringify({...state,exportedAt:new Date().toISOString(),app:'Travel Manager'} ,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='travel-manager-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)});$('backup-import-btn').addEventListener('click',()=>$('backup-import').click());$('backup-import').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{const x=JSON.parse(await f.text());if(!x.suit||!Array.isArray(x.flights)||!Array.isArray(x.metars))throw new Error('Format de sauvegarde invalide');if(!confirm('Remplacer les données actuelles par cette sauvegarde ?'))return;state=Object.assign(clone(defaults),x,{suit:Object.assign(clone(defaults.suit),x.suit)});persist();alert('Sauvegarde restaurée.')}catch(err){alert('Restauration impossible : '+err.message)}e.target.value=''});$('data-reset').addEventListener('click',()=>{if(confirm('Effacer définitivement les vols, METAR et réglages de cette application sur cet appareil ? Exporte d’abord une sauvegarde si nécessaire.')){stopSim();state=clone(defaults);currentPlan=null;currentMetar=null;persist();$('plan-preview').className='empty';$('plan-preview').textContent='Aucun plan chargé.';$('metar-current').className='empty';$('metar-current').textContent='Aucune observation.'}});
-// Bibliothèque de cartes PDF — stockage local avec IndexedDB.
-const CHART_DB = 'travelManagerCharts';
-const CHART_STORE = 'pdfs';
-const CHART_SECTIONS_KEY = 'travelManagerChartSections';
-
+// Bibliothèque de cartes PDF — catalogue hébergé dans le dépôt.
 let chartSection = 'DTTX';
-let currentPdfUrl = null;
-let currentPdfId = null;
+let chartCatalog = {};
 
 function chartSections() {
-  try {
-    const saved = JSON.parse(
-      localStorage.getItem(CHART_SECTIONS_KEY) || '[]'
-    );
-    return [
-      'DTTX',
-      'LFPO',
-      ...saved.filter(
-        name => name && name !== 'DTTX' && name !== 'LFPO'
-      )
-    ];
-  } catch {
-    return ['DTTX', 'LFPO'];
-  }
-}
-
-function saveChartSections(sections) {
-  localStorage.setItem(
-    CHART_SECTIONS_KEY,
-    JSON.stringify([...new Set(['DTTX', 'LFPO', ...sections])])
-  );
-}
-
-function chartDb() {
-  return new Promise((resolve, reject) => {
-    const request = indexedDB.open(CHART_DB, 1);
-
-    request.onupgradeneeded = () => {
-      const db = request.result;
-      if (!db.objectStoreNames.contains(CHART_STORE)) {
-        db.createObjectStore(CHART_STORE, { keyPath: 'id' });
-      }
-    };
-
-    request.onsuccess = () => resolve(request.result);
-    request.onerror = () => reject(request.error);
-  });
-}
-
-async function chartRequest(mode, action) {
-  const db = await chartDb();
-
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction(CHART_STORE, mode);
-    const store = transaction.objectStore(CHART_STORE);
-    const request = action(store);
-    let result;
-
-    request.onsuccess = () => {
-      result = request.result;
-    };
-
-    request.onerror = () => reject(request.error);
-
-    transaction.oncomplete = () => {
-      db.close();
-      resolve(result);
-    };
-
-    transaction.onerror = () => {
-      db.close();
-      reject(transaction.error);
-    };
-
-    transaction.onabort = () => {
-      db.close();
-      reject(transaction.error || new Error('Opération annulée'));
-    };
-  });
-}
-
-async function getChartPdfs() {
-  return (await chartRequest('readonly', store => store.getAll())) || [];
+  const names = Object.keys(chartCatalog || {});
+  return [...new Set(['DTTX', 'LFPO', ...names])];
 }
 
 function renderChartTabs() {
   const sections = chartSections();
+
+  if (!sections.includes(chartSection)) {
+    chartSection = sections[0] || 'DTTX';
+  }
 
   $('chart-tabs').innerHTML = sections.map(name => `
     <button
@@ -291,11 +204,11 @@ function renderChartTabs() {
     >${esc(name)}</button>
   `).join('');
 
-  $('chart-tabs').querySelectorAll('[data-chart-section]')
+  $('chart-tabs')
+    .querySelectorAll('[data-chart-section]')
     .forEach(button => {
       button.addEventListener('click', () => {
         chartSection = button.dataset.chartSection;
-        renderChartTabs();
         renderChartList();
       });
     });
@@ -303,202 +216,174 @@ function renderChartTabs() {
   $('chart-section-title').textContent = 'Cartes ' + chartSection;
 }
 
-async function renderChartList() {
-  renderChartTabs();
+function safeChartUrl(value) {
+  if (typeof value !== 'string' || !value.trim()) {
+    return null;
+  }
+
+  const raw = value.trim();
+
+  if (/^(javascript|data|blob):/i.test(raw)) {
+    return null;
+  }
 
   try {
-    const all = await getChartPdfs();
-    const docs = all
-      .filter(doc => doc.section === chartSection)
-      .sort((a, b) => b.addedAt.localeCompare(a.addedAt));
+    const url = new URL(raw, document.baseURI);
 
-    $('charts-total').textContent = all.length + ' PDF';
-
-    if (!docs.length) {
-      $('chart-list').innerHTML =
-        '<div class="empty">Aucun PDF dans ce dossier. ' +
-        'Utilise le sélecteur ci-dessus pour en ajouter.</div>';
-      return;
+    if (
+      url.origin !== location.origin ||
+      !url.pathname.toLowerCase().endsWith('.pdf')
+    ) {
+      return null;
     }
 
-    $('chart-list').innerHTML = docs.map(doc => `
-      <div class="item pdf-file">
-        <div>
-          <div class="item-title">${esc(doc.name)}</div>
-          <div class="item-meta">
-            Ajouté le ${esc(fmtDate(doc.addedAt))}
-            · ${(doc.size / 1024 / 1024).toFixed(2)} Mo
-          </div>
-        </div>
-        <div class="pdf-actions">
-          <button class="btn primary" data-pdf-view="${esc(doc.id)}">
-            Lire
-          </button>
-          <button class="btn danger" data-pdf-delete="${esc(doc.id)}">
-            Supprimer
-          </button>
-        </div>
-      </div>
-    `).join('');
-
-    $('chart-list').querySelectorAll('[data-pdf-view]')
-      .forEach(button => {
-        button.addEventListener('click', () => {
-          openChartPdf(button.dataset.pdfView);
-        });
-      });
-
-    $('chart-list').querySelectorAll('[data-pdf-delete]')
-      .forEach(button => {
-        button.addEventListener('click', async () => {
-          const doc = docs.find(
-            item => item.id === button.dataset.pdfDelete
-          );
-
-          if (!doc || !confirm(
-            'Supprimer « ' + doc.name + ' » du stockage local ?'
-          )) return;
-
-          await chartRequest(
-            'readwrite',
-            store => store.delete(doc.id)
-          );
-
-          if (currentPdfId === doc.id) closeChartPdf();
-
-          $('chart-message').textContent =
-            'PDF supprimé du stockage local.';
-
-          await renderChartList();
-        });
-      });
-  } catch (error) {
-    $('chart-list').innerHTML =
-      '<div class="notice">Erreur de lecture de la bibliothèque PDF : ' +
-      esc(error.message) + '</div>';
+    return url.href;
+  } catch {
+    return null;
   }
 }
 
-async function openChartPdf(id) {
+async function loadChartCatalog() {
+  $('chart-message').textContent = 'Chargement du catalogue…';
+
   try {
-    const docs = await getChartPdfs();
-    const doc = docs.find(item => item.id === id);
+    const response = await fetch('./charts/catalog.json', {
+      cache: 'no-store'
+    });
 
-    if (!doc) throw new Error('Fichier introuvable');
+    if (!response.ok) {
+      throw new Error('HTTP ' + response.status);
+    }
 
-    if (currentPdfUrl) URL.revokeObjectURL(currentPdfUrl);
+    const data = await response.json();
 
-    currentPdfUrl = URL.createObjectURL(doc.blob);
-    currentPdfId = id;
+    if (
+      !data ||
+      typeof data !== 'object' ||
+      Array.isArray(data)
+    ) {
+      throw new Error('Format de catalogue invalide');
+    }
 
-    $('pdf-viewer-title').textContent = doc.name;
-    $('pdf-viewer').src = currentPdfUrl;
-    $('pdf-viewer').classList.remove('hidden');
-    $('pdf-viewer-empty').classList.add('hidden');
-    $('pdf-open-new').classList.remove('hidden');
-    $('pdf-close').classList.remove('hidden');
-
-    $('pdf-open-new').onclick = () => {
-      window.open(currentPdfUrl, '_blank');
-    };
+    chartCatalog = data;
+    renderChartList();
 
     $('chart-message').textContent =
-      'PDF ouvert : ' + doc.name +
-      '. Utilise les commandes du lecteur pour zoomer et changer de page.';
+      'Catalogue chargé. Les cartes publiées sont accessibles depuis tes appareils.';
   } catch (error) {
+    chartCatalog = {};
+    renderChartList();
+
     $('chart-message').textContent =
-      'Ouverture impossible : ' + error.message;
+      'Impossible de charger charts/catalog.json : ' +
+      error.message +
+      '. Vérifie que le fichier est publié sur le site.';
   }
+}
+
+function renderChartList() {
+  renderChartTabs();
+
+  const docs = Array.isArray(chartCatalog[chartSection])
+    ? chartCatalog[chartSection]
+    : [];
+
+  const validDocs = docs.filter(doc =>
+    doc &&
+    typeof doc.name === 'string' &&
+    safeChartUrl(doc.url)
+  );
+
+  const total = Object.values(chartCatalog).reduce(
+    (count, list) =>
+      count + (Array.isArray(list) ? list.length : 0),
+    0
+  );
+
+  $('charts-total').textContent = total + ' PDF';
+
+  if (!validDocs.length) {
+    $('chart-list').innerHTML =
+      '<div class="empty">' +
+      'Aucune carte publiée dans ce dossier. ' +
+      'Ajoute le PDF au dépôt et référence-le dans charts/catalog.json.' +
+      '</div>';
+    return;
+  }
+
+  $('chart-list').innerHTML = validDocs.map((doc, index) => `
+    <div class="item pdf-file">
+      <div>
+        <div class="item-title">${esc(doc.name)}</div>
+        <div class="item-meta">${esc(doc.url)}</div>
+      </div>
+
+      <div class="pdf-actions">
+        <button class="btn primary" data-pdf-view="${index}">
+          Lire
+        </button>
+
+        <a
+          class="btn"
+          href="${esc(safeChartUrl(doc.url))}"
+          target="_blank"
+          rel="noopener"
+        >Ouvrir / télécharger</a>
+      </div>
+    </div>
+  `).join('');
+
+  $('chart-list')
+    .querySelectorAll('[data-pdf-view]')
+    .forEach(button => {
+      button.addEventListener('click', () => {
+        openChartPdf(validDocs[Number(button.dataset.pdfView)]);
+      });
+    });
+}
+
+function openChartPdf(doc) {
+  const url = doc && safeChartUrl(doc.url);
+
+  if (!url) {
+    $('chart-message').textContent =
+      'Chemin PDF invalide : vérifie charts/catalog.json.';
+    return;
+  }
+
+  $('pdf-viewer-title').textContent = doc.name;
+  $('pdf-viewer').src = url;
+
+  $('pdf-viewer').classList.remove('hidden');
+  $('pdf-viewer-empty').classList.add('hidden');
+  $('pdf-open-new').classList.remove('hidden');
+  $('pdf-close').classList.remove('hidden');
+
+  $('pdf-open-new').onclick = () => {
+    window.open(url, '_blank', 'noopener');
+  };
+
+  $('chart-message').textContent =
+    'Carte ouverte : ' + doc.name +
+    '. Utilise les commandes du lecteur pour zoomer et changer de page.';
 }
 
 function closeChartPdf() {
-  if (currentPdfUrl) URL.revokeObjectURL(currentPdfUrl);
-
-  currentPdfUrl = null;
-  currentPdfId = null;
-
   $('pdf-viewer').src = 'about:blank';
+
   $('pdf-viewer').classList.add('hidden');
   $('pdf-viewer-empty').classList.remove('hidden');
   $('pdf-open-new').classList.add('hidden');
   $('pdf-close').classList.add('hidden');
+
   $('pdf-viewer-title').textContent = 'Lecteur PDF';
 }
 
-$('chart-upload').addEventListener('change', async event => {
-  const files = Array.from(event.target.files || []);
-  if (!files.length) return;
-
-  const pdfs = files.filter(file =>
-    file.type === 'application/pdf' ||
-    file.name.toLowerCase().endsWith('.pdf')
-  );
-
-  if (pdfs.length !== files.length) {
-    $('chart-message').textContent =
-      'Certains fichiers ont été ignorés : seuls les PDF sont acceptés.';
-  }
-
-  try {
-    let added = 0;
-
-    for (const file of pdfs) {
-      if (file.size === 0) continue;
-
-      await chartRequest('readwrite', store => store.put({
-        id: uid(),
-        name: file.name,
-        section: chartSection,
-        size: file.size,
-        addedAt: new Date().toISOString(),
-        blob: file
-      }));
-
-      added++;
-    }
-
-    if (added) {
-      $('chart-message').textContent =
-        added + ' PDF ajouté(s) au dossier ' + chartSection + '.';
-    } else if (pdfs.length) {
-      $('chart-message').textContent =
-        'Aucun fichier valide n’a été enregistré.';
-    }
-
-    await renderChartList();
-  } catch (error) {
-    $('chart-message').textContent =
-      'Enregistrement impossible : ' + error.message +
-      '. Vérifie l’espace de stockage disponible.';
-  }
-
-  event.target.value = '';
-});
-
-$('chart-add-section').addEventListener('click', () => {
-  const input = prompt('Nom du nouveau dossier (ex. LFPG) :');
-  if (!input) return;
-
-  const name = input.trim().toUpperCase().slice(0, 24);
-  if (!name) return;
-
-  const sections = chartSections();
-
-  if (!sections.includes(name)) {
-    saveChartSections([...sections, name]);
-  }
-
-  chartSection = name;
-  renderChartTabs();
-  renderChartList();
-
-  $('chart-message').textContent = 'Dossier ' + name + ' sélectionné.';
-});
-
 $('pdf-close').addEventListener('click', closeChartPdf);
 
-document.querySelector('[data-page="charts"]')
-  .addEventListener('click', renderChartList);
+document
+  .querySelector('[data-page="charts"]')
+  .addEventListener('click', loadChartCatalog);
       // PWA lifecycle.
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;$('install-message').textContent='Installation disponible.'});$('install-btn').addEventListener('click',async()=>{if(installPrompt){installPrompt.prompt();await installPrompt.userChoice;installPrompt=null}else $('install-message').textContent='Dans Chrome Android : menu ⋮ → Installer l’application ou Ajouter à l’écran d’accueil.'});$('cache-refresh').addEventListener('click',async()=>{if('serviceWorker'in navigator){const regs=await navigator.serviceWorker.getRegistrations();await Promise.all(regs.map(r=>r.update()));$('sw-status').textContent='Mis à jour';}else $('sw-status').textContent='Non disponible';});function online(){const t=navigator.onLine?'En ligne':'Hors ligne';$('online-status').textContent=t;$('settings-online').textContent=t}window.addEventListener('online',online);window.addEventListener('offline',online);if('serviceWorker'in navigator&&location.protocol!=='file:'){navigator.serviceWorker.register('./sw.js').then(()=>$('sw-status').textContent='Actif').catch(()=>$('sw-status').textContent='Indisponible')}else $('sw-status').textContent='Nécessite HTTPS ou localhost';
 renderAll();if(state.flights[0])showPlan(state.flights[0]);online();
