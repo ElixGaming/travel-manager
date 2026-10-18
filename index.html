@@ -5,6 +5,54 @@
 <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icons/icon.svg" type="image/svg+xml"><title>Travel Manager</title>
 <style>
 :root{color-scheme:dark;--bg:#07111f;--panel:#0d1b2d;--panel2:#10243a;--line:#213b55;--text:#edf6ff;--muted:#8ea8c2;--cyan:#4bdcff;--green:#47e0ae;--amber:#ffc66d;--red:#ff6b7c;--radius:18px;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#12324a 0,transparent 42%),var(--bg);color:var(--text);min-height:100vh}button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1180px;margin:auto;padding:18px 18px 100px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:12px}.logo{width:46px;height:46px;border:1px solid #2b647e;border-radius:14px;display:grid;place-items:center;color:var(--cyan);background:linear-gradient(145deg,#12344b,#0b1b2c);font-weight:900;letter-spacing:-2px}.eyebrow{font-size:.7rem;letter-spacing:.18em;color:var(--cyan);font-weight:800}.brand h1{font-size:1.25rem;margin:2px 0}.status{font-size:.75rem;color:var(--green);border:1px solid #286450;background:#102b2b;padding:7px 10px;border-radius:99px;white-space:nowrap}.hero{padding:22px;border:1px solid #24445f;border-radius:24px;background:linear-gradient(125deg,#10263c,#0a1727 70%);position:relative;overflow:hidden}.hero:after{content:'TM';position:absolute;right:18px;top:-28px;font-size:9rem;font-weight:900;color:#ffffff06;pointer-events:none}.hero h2{margin:5px 0 8px;font-size:clamp(1.5rem,4vw,2.25rem)}p{line-height:1.5}.muted{color:var(--muted)}.small{font-size:.8rem}.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px;margin-top:14px}.card{grid-column:span 4;min-width:0;padding:18px;background:linear-gradient(160deg,#102137,#0b1727);border:1px solid var(--line);border-radius:var(--radius)}.wide{grid-column:span 8}.full{grid-column:1/-1}.half{grid-column:span 6}.card h3{margin:0 0 14px;font-size:1rem}.kicker{font-size:.72rem;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}.metric{font-size:2rem;font-weight:800;letter-spacing:-.04em;margin:5px 0}.metric small{font-size:.9rem;color:var(--muted);letter-spacing:0}.row{display:flex;align-items:center;justify-content:space-between;gap:12px}.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}.btn{border:1px solid #2a4c68;background:#12283e;color:var(--text);padding:11px 14px;border-radius:12px;font-weight:700}.btn.primary{background:var(--cyan);color:#03111c;border-color:var(--cyan)}.btn.good{border-color:#28765f;color:var(--green)}.btn.warn{border-color:#795e37;color:var(--amber)}.btn.danger{border-color:#753948;color:var(--red)}.btn:active{transform:scale(.98)}.bar{height:8px;background:#1c3044;border-radius:99px;overflow:hidden;margin:10px 0}.bar span{height:100%;display:block;background:var(--cyan);border-radius:99px;transition:width .2s}.bar.green span{background:var(--green)}.bar.amber span{background:var(--amber)}.bar.red span{background:var(--red)}.field{display:flex;flex-direction:column;gap:7px;margin:12px 0}.field label{font-size:.82rem;color:#b4c9dc}.field input,.field select,.field textarea{width:100%;min-width:0;border:1px solid #2a435c;background:#081522;color:var(--text);padding:12px;border-radius:11px;outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--cyan)}.field input[type=range]{padding:0;accent-color:var(--cyan)}.nav{position:fixed;z-index:5;bottom:0;left:0;right:0;background:#081421ed;border-top:1px solid #223b52;backdrop-filter:blur(18px);display:flex;justify-content:center;padding:8px max(8px,env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));gap:4px}.nav button{flex:1;max-width:150px;background:transparent;color:var(--muted);border:0;border-radius:12px;padding:9px 4px;font-size:.72rem}.nav button span{display:block;font-size:1.15rem;margin-bottom:3px}.nav button.active{background:#14324a;color:var(--cyan)}.page{display:none}.page.active{display:block}.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:99px;padding:6px 9px;color:var(--muted);font-size:.75rem}.dot{width:7px;height:7px;background:var(--green);border-radius:50%}.gauge{display:flex;align-items:center;gap:14px}.ring{--p:85;width:94px;height:94px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--cyan) calc(var(--p)*1%),#1b3044 0);position:relative;flex-shrink:0}.ring:before{content:'';position:absolute;inset:7px;border-radius:50%;background:#0d1b2d}.ring b{position:relative;font-size:1.2rem}.source-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.source{padding:12px 8px;border:1px solid var(--line);background:#0a1827;color:var(--text);border-radius:12px;text-align:center;font-size:.82rem}.source.active{border-color:var(--cyan);background:#12354b;color:var(--cyan)}.source strong{display:block;font-size:1.1rem;margin-bottom:4px}.list{display:flex;flex-direction:column;gap:9px}.item{padding:13px;border:1px solid var(--line);border-radius:13px;background:#0a1827}.item-title{font-weight:750}.item-meta{font-size:.76rem;color:var(--muted);margin-top:4px;overflow-wrap:anywhere}.empty{padding:22px;text-align:center;border:1px dashed #29445b;border-radius:14px;color:var(--muted)}.notice{border:1px solid #6e5734;background:#2a2216;color:#ffdfa7;border-radius:12px;padding:12px;font-size:.8rem;line-height:1.45}.notice.blue{border-color:#24536b;background:#102838;color:#b6eaff}.notice.red{border-color:#693743;background:#2b1720;color:#ffb9c3}.route{font-family:ui-monospace,monospace;font-size:1rem;color:var(--cyan);overflow-wrap:anywhere}.weather{font-family:ui-monospace,monospace;line-height:1.6;overflow-wrap:anywhere;background:#07121e;padding:12px;border-radius:12px;border:1px solid #203b54}.divider{height:1px;background:var(--line);margin:14px 0}.hidden{display:none!important}footer{text-align:center;color:#65819c;font-size:.73rem;margin-top:22px}@media(max-width:760px){.app{padding:13px 12px 100px}.card,.wide,.half{grid-column:1/-1}.hero{padding:18px}.hero:after{font-size:6rem;top:-4px}.source-grid{grid-template-columns:1fr}.source{text-align:left;display:flex;align-items:center;gap:10px}.source strong{margin:0;min-width:26px}.top{align-items:flex-start}.status{font-size:.68rem}.nav button{font-size:.66rem}.metric{font-size:1.8rem}}
+.chart-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.chart-tab {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--muted);
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.chart-tab.active {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  background: var(--panel2);
+}
+
+.pdf-frame {
+  width: 100%;
+  height: min(72vh, 850px);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: white;
+}
+
+.pdf-file {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pdf-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pdf-file .item-meta {
+  overflow-wrap: anywhere;
+}
 </style></head><body>
 <div class="app"><header class="top"><div class="brand"><div class="logo">TM</div><div><div class="eyebrow">MISSION SYSTEMS</div><h1>TRAVEL MANAGER</h1></div></div><div class="status"><span class="dot"></span> LOCAL STORAGE</div></header>
 <section id="page-home" class="page active"><div class="hero"><div class="eyebrow">FLIGHT & SUIT OPERATIONS</div><h2>Bonjour, pilote.</h2><p class="muted">Ton centre de préparation de vol et de contrôle de combinaison, disponible même hors connexion.</p><div class="actions"><button class="btn primary" data-go="efb">＋ Préparer un vol</button><button class="btn" data-go="suit">◈ Suit Manager</button></div></div>
@@ -24,13 +72,92 @@
 <article class="card full"><div class="row"><h3>Plan sélectionné</h3><span class="pill" id="plan-source-pill">Aucun plan</span></div><div id="plan-preview" class="empty">Aucun plan chargé. Les plans enregistrés apparaîtront dans la bibliothèque.</div></article></div></section>
 <section id="page-weather" class="page"><div class="hero"><div class="eyebrow">AVIATION WEATHER</div><h2>METAR Archive</h2><p class="muted">Récupère les observations météo en ligne et conserve les résultats sur la tablette.</p></div><div class="grid"><article class="card half"><h3>Rechercher un METAR</h3><div class="field"><label for="metar-icao">Code OACI</label><input id="metar-icao" maxlength="4" placeholder="LFPG" autocapitalize="characters"></div><div class="actions"><button id="metar-fetch" class="btn primary">⌕ Récupérer le METAR</button><button id="metar-save-manual" class="btn">Saisir manuellement</button></div><p class="muted small" id="metar-message" aria-live="polite"></p></article><article class="card half"><h3>Dernière observation</h3><div id="metar-current" class="empty">Recherche un code OACI pour afficher une observation. Une connexion Internet est nécessaire pour les données en direct.</div></article><article class="card full"><div class="row"><h3>METAR archivés</h3><span class="pill"><span id="metar-total">0</span> entrées</span></div><div id="metar-list" class="list"><div class="empty">Aucun METAR archivé.</div></div></article></div></section>
 <section id="page-library" class="page"><div class="hero"><div class="eyebrow">LOCAL FLIGHT DATA</div><h2>Flight Library</h2><p class="muted">Les données sont enregistrées sur cet appareil. Exporte une sauvegarde pour les transférer vers un autre appareil.</p><div class="actions"><button id="backup-export" class="btn primary">⇧ Exporter une sauvegarde</button><button id="backup-import-btn" class="btn">⇩ Restaurer une sauvegarde</button><input id="backup-import" type="file" accept="application/json,.json" class="hidden"></div></div><div class="grid"><article class="card full"><div class="row"><h3>Plans de vol</h3><span class="pill" id="flight-total">0 vols</span></div><div id="flight-list" class="list"><div class="empty">Aucun vol sauvegardé.</div></div></article><article class="card full"><div class="row"><h3>Archives METAR</h3><span class="pill" id="metar-total-2">0 entrées</span></div><div id="library-metar-list" class="list"><div class="empty">Aucun METAR archivé.</div></div></article><article class="card full"><h3>Gestion des données</h3><p class="muted small">Les données restent dans le stockage du navigateur de cette tablette. Effacer les données du navigateur peut les supprimer : fais régulièrement une sauvegarde JSON.</p><div class="actions"><button id="data-reset" class="btn danger">Effacer toutes les données locales</button></div></article></div></section>
-<section id="page-settings" class="page"><div class="hero"><div class="eyebrow">SYSTEM CONFIGURATION</div><h2>Paramètres</h2><p class="muted">Installation, sauvegarde et état de Travel Manager.</p></div><div class="grid"><article class="card half"><h3>Installation PWA</h3><p class="muted small">Pour installer l'application, ouvre-la via HTTPS dans Chrome Android puis utilise le menu ⋮ → « Installer l'application » ou « Ajouter à l'écran d'accueil ».</p><button id="install-btn" class="btn primary">Installer Travel Manager</button><p id="install-message" class="small muted"></p></article><article class="card half"><h3>Hors connexion</h3><div class="row"><span class="muted small">Service worker</span><strong id="sw-status">Vérification…</strong></div><div class="row" style="margin-top:12px"><span class="muted small">Connexion Internet</span><strong id="settings-online">—</strong></div><div class="actions"><button id="cache-refresh" class="btn">Actualiser le cache</button></div></article><article class="card full"><h3>À propos & sécurité</h3><div class="notice">Travel Manager est un outil personnel de simulation et de préparation de vols virtuels. Les valeurs du Suit Manager sont fictives. L'application ne remplace pas un EFB certifié, les données aéronautiques officielles, ni un système réel de survie ou d'oxygène.</div><p class="muted small">Les requêtes externes (SimBrief et METAR) peuvent ne pas fonctionner selon la connexion ou les règles CORS du service. L'import de fichier et la saisie manuelle restent disponibles.</p></article></div></section>
+<section id="page-charts" class="page">
+  <div class="hero">
+    <div class="eyebrow">DOCUMENTS · LOCAL LIBRARY</div>
+    <h2>Airport Charts</h2>
+    <p class="muted">
+      Importe et consulte tes cartes d’aéroports au format PDF.
+      Les fichiers sont conservés sur cet appareil.
+    </p>
+  </div>
+
+  <div class="grid">
+    <article class="card full">
+      <div class="row">
+        <h3>Dossiers d’aéroports</h3>
+        <span class="pill" id="charts-total">0 PDF</span>
+      </div>
+
+      <div class="chart-tabs" id="chart-tabs"></div>
+
+      <div class="notice">
+        DTTX et LFPO sont toujours disponibles.
+        Tu peux ajouter d’autres dossiers selon tes besoins.
+      </div>
+
+      <div class="field">
+        <label for="chart-upload">Importer des fichiers PDF</label>
+        <input
+          id="chart-upload"
+          type="file"
+          accept="application/pdf,.pdf"
+          multiple
+        >
+      </div>
+
+      <p id="chart-message" class="muted small" aria-live="polite">
+        Choisis des PDF à ajouter au dossier actif.
+      </p>
+
+      <div class="actions">
+        <button id="chart-add-section" class="btn">
+          ＋ Ajouter un dossier
+        </button>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3 id="chart-section-title">Cartes DTTX</h3>
+      <div id="chart-list">
+        <div class="empty">Aucun PDF dans ce dossier.</div>
+      </div>
+    </article>
+
+    <article class="card full">
+      <div class="row">
+        <h3 id="pdf-viewer-title">Lecteur PDF</h3>
+        <span class="pill">LOCAL</span>
+      </div>
+
+      <div id="pdf-viewer-empty" class="empty">
+        Sélectionne un PDF dans la liste pour l’afficher ici.
+      </div>
+
+      <iframe
+        id="pdf-viewer"
+        class="pdf-frame hidden"
+        title="Lecteur de cartes PDF"
+      ></iframe>
+
+      <div class="actions">
+        <button id="pdf-open-new" class="btn hidden">
+          Ouvrir dans un nouvel onglet
+        </button>
+        <button id="pdf-close" class="btn hidden">
+          Fermer le PDF
+        </button>
+      </div>
+    </article>
+  </div>
+</section>
+  <section id="page-settings" class="page"><div class="hero"><div class="eyebrow">SYSTEM CONFIGURATION</div><h2>Paramètres</h2><p class="muted">Installation, sauvegarde et état de Travel Manager.</p></div><div class="grid"><article class="card half"><h3>Installation PWA</h3><p class="muted small">Pour installer l'application, ouvre-la via HTTPS dans Chrome Android puis utilise le menu ⋮ → « Installer l'application » ou « Ajouter à l'écran d'accueil ».</p><button id="install-btn" class="btn primary">Installer Travel Manager</button><p id="install-message" class="small muted"></p></article><article class="card half"><h3>Hors connexion</h3><div class="row"><span class="muted small">Service worker</span><strong id="sw-status">Vérification…</strong></div><div class="row" style="margin-top:12px"><span class="muted small">Connexion Internet</span><strong id="settings-online">—</strong></div><div class="actions"><button id="cache-refresh" class="btn">Actualiser le cache</button></div></article><article class="card full"><h3>À propos & sécurité</h3><div class="notice">Travel Manager est un outil personnel de simulation et de préparation de vols virtuels. Les valeurs du Suit Manager sont fictives. L'application ne remplace pas un EFB certifié, les données aéronautiques officielles, ni un système réel de survie ou d'oxygène.</div><p class="muted small">Les requêtes externes (SimBrief et METAR) peuvent ne pas fonctionner selon la connexion ou les règles CORS du service. L'import de fichier et la saisie manuelle restent disponibles.</p></article></div></section>
 <footer>TRAVEL MANAGER · PWA 1.0.0 · SIMULATION ONLY</footer></div>
-<nav class="nav" aria-label="Navigation principale"><button class="active" data-page="home"><span>⌂</span>Accueil</button><button data-page="suit"><span>◈</span>Combinaison</button><button data-page="efb"><span>✈</span>Flight EFB</button><button data-page="weather"><span>☁</span>METAR</button><button data-page="library"><span>▤</span>Bibliothèque</button><button data-page="settings"><span>⚙</span>Réglages</button></nav>
+<nav class="nav" aria-label="Navigation principale"><button class="active" data-page="home"><span>⌂</span>Accueil</button><button data-page="suit"><span>◈</span>Combinaison</button><button data-page="efb"><span>✈</span>Flight EFB</button><button data-page="weather"><span>☁</span>METAR</button><button data-page="library"><span>▤</span>Bibliothèque</button><button data-page="charts"><span>▧</span>Cartes PDF</button><button data-page="settings"><span>⚙</span>Réglages</button></nav>
 <script>
 (()=>{'use strict';const KEY='travelManager.v1';const defaults={suit:{temp:21,target:22,heating:true,source:'external',flight:100,emergency:100,consumption:1,running:false},flights:[],metars:[],simbriefUser:''};let state=load();let installPrompt=null;let simTimer=null;let currentPlan=null;let currentMetar=null;
 function clone(x){return JSON.parse(JSON.stringify(x))}function load(){try{const x=JSON.parse(localStorage.getItem(KEY));return x&&x.suit?Object.assign(clone(defaults),x,{suit:Object.assign(clone(defaults.suit),x.suit)}):clone(defaults)}catch{return clone(defaults)}}function persist(){try{localStorage.setItem(KEY,JSON.stringify(state));renderAll()}catch(e){alert('La sauvegarde locale a échoué : '+e.message)}}function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}function fmtDate(v){try{return new Date(v).toLocaleString('fr-FR')}catch{return String(v)}}function $(id){return document.getElementById(id)}
-const pages=['home','suit','efb','weather','library','settings'];function go(page){pages.forEach(p=>$('page-'+p).classList.toggle('active',p===page));document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===page));window.scrollTo({top:0,behavior:'smooth'});if(page==='library')renderLibrary()}document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.page)));document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go))); 
+const pages=['home','suit','efb','weather','library','charts','settings'];function go(page){pages.forEach(p=>$('page-'+p).classList.toggle('active',p===page));document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===page));window.scrollTo({top:0,behavior:'smooth'});if(page==='library')renderLibrary()}document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.page)));document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go))); 
 function srcName(s){return ({external:'Air extérieur',flight:'Bouteille de vol',emergency:"Bouteille d'urgence"})[s]||'Air extérieur'}function selectedLevel(){return state.suit.source==='flight'?state.suit.flight:state.suit.source==='emergency'?state.suit.emergency:null}function endurance(level){if(level===null)return '—';const mins=level/Math.max(.1,state.suit.consumption);return mins<60?Math.floor(mins)+' min':Math.floor(mins/60)+' h '+Math.floor(mins%60)+' min'}
 function renderSuit(){const s=state.suit;$('suit-temp-display').textContent=s.temp;$('target-display').textContent=s.target;$('target-value').textContent=s.target;$('temp-range').value=s.target;$('heat-pill').textContent=s.heating?'♨ Chauffage ON':'Chauffage OFF';$('heat-toggle').textContent=s.heating?'Désactiver le chauffage':'Activer le chauffage';$('heat-toggle').className='btn '+(s.heating?'good':'');$('flight-level').value=s.flight;$('emergency-level').value=s.emergency;$('flight-pct').textContent=s.flight+'%';$('emergency-pct').textContent=s.emergency+'%';$('flight-litres').innerHTML=s.flight+' <small>%</small>';$('emergency-litres').innerHTML=s.emergency+' <small>%</small>';$('flight-ring').style.setProperty('--p',s.flight);$('emergency-ring').style.setProperty('--p',s.emergency);$('flight-endurance').textContent=endurance(s.flight);$('emergency-endurance').textContent=endurance(s.emergency);$('consumption').value=s.consumption;$('consumption-value').textContent=Number(s.consumption).toFixed(1);$('sim-status').textContent=s.running?'Simulation active':'À l’arrêt';$('sim-start').disabled=s.running;$('sim-stop').disabled=!s.running;document.querySelectorAll('[data-source]').forEach(b=>b.classList.toggle('active',b.dataset.source===s.source));$('source-name').textContent=srcName(s.source);$('source-description').textContent=s.source==='external'?'Source extérieure fictive sélectionnée. Les bouteilles ne baissent pas avec cette source.':'Source fictive sélectionnée. La consommation de simulation peut faire baisser son niveau.';const level=selectedLevel();$('suit-alert').classList.toggle('hidden',!(level!==null&&level<=20));if(level!==null&&level<=20){$('suit-alert').textContent=level<=0?'RÉSERVE SIMULÉE ÉPUISÉE. Le scénario ne peut plus consommer cette source.':'Attention : niveau simulé faible ('+level+' %).';$('suit-alert').className='notice '+(level<=10?'red':'')} }
 function renderHome(){const s=state.suit;$('home-temp').textContent=s.temp+' °C';$('home-heat').textContent=s.heating?'Chauffage activé':'Chauffage désactivé';$('home-tempbar').style.width=Math.max(0,Math.min(100,(s.temp-10)/25*100))+'%';$('home-source').textContent=({external:'EXT',flight:'MAIN',emergency:'BACKUP'})[s.source];$('home-source-label').textContent=srcName(s.source);const level=selectedLevel();$('home-o2bar').style.width=(level===null?100:level)+'%';$('home-o2bar').style.background=level!==null&&level<21?'var(--amber)':'var(--cyan)';$('home-flights').textContent=state.flights.length;$('home-metar-count').textContent=state.metars.length;const f=state.flights[0];$('home-lastflight').innerHTML=f?`<div class="item-title">${esc(f.name||'Vol sans nom')}</div><div class="route">${esc(f.dep||'----')} → ${esc(f.dest||'----')}</div><div class="item-meta">${esc(fmtDate(f.savedAt))} · ${esc(f.source||'Saisie manuelle')}</div>`:'<div class="empty">Aucun vol sauvegardé. Importe un plan SimBrief ou crée une fiche de vol.</div>'}
@@ -69,7 +196,310 @@ async function fetchMetar(){const icao=$('metar-icao').value.trim().toUpperCase(
 function saveMetar(m){if(!m)return;state.metars.unshift({...m,id:m.id||uid(),savedAt:new Date().toISOString()});state.metars=state.metars.slice(0,500);persist();$('metar-message').textContent='METAR archivé localement.'} $('metar-fetch').addEventListener('click',fetchMetar);$('metar-save-manual').addEventListener('click',()=>{const icao=$('metar-icao').value.trim().toUpperCase();if(!/^[A-Z0-9]{4}$/.test(icao)){alert('Saisis un code OACI à 4 caractères.');return}const raw=prompt('Colle ici la ligne METAR complète :');if(!raw||!raw.trim())return;currentMetar={id:uid(),icao,raw:raw.trim(),observed:'Heure non vérifiée',source:'Saisie manuelle',decoded:'Observation saisie par l’utilisateur, non vérifiée'};$('metar-current').innerHTML=`<div class="item-title">${esc(icao)}</div><div class="weather">${esc(raw.trim())}</div><div class="item-meta">Saisie manuelle — non vérifiée</div><div class="actions"><button id="save-current-metar" class="btn primary">＋ Archiver ce METAR</button></div>`;$('save-current-metar').addEventListener('click',()=>saveMetar(currentMetar))});
 // Export/restore backup for migration between devices.
 $('backup-export').addEventListener('click',()=>{const blob=new Blob([JSON.stringify({...state,exportedAt:new Date().toISOString(),app:'Travel Manager'} ,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='travel-manager-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)});$('backup-import-btn').addEventListener('click',()=>$('backup-import').click());$('backup-import').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{const x=JSON.parse(await f.text());if(!x.suit||!Array.isArray(x.flights)||!Array.isArray(x.metars))throw new Error('Format de sauvegarde invalide');if(!confirm('Remplacer les données actuelles par cette sauvegarde ?'))return;state=Object.assign(clone(defaults),x,{suit:Object.assign(clone(defaults.suit),x.suit)});persist();alert('Sauvegarde restaurée.')}catch(err){alert('Restauration impossible : '+err.message)}e.target.value=''});$('data-reset').addEventListener('click',()=>{if(confirm('Effacer définitivement les vols, METAR et réglages de cette application sur cet appareil ? Exporte d’abord une sauvegarde si nécessaire.')){stopSim();state=clone(defaults);currentPlan=null;currentMetar=null;persist();$('plan-preview').className='empty';$('plan-preview').textContent='Aucun plan chargé.';$('metar-current').className='empty';$('metar-current').textContent='Aucune observation.'}});
-// PWA lifecycle.
+// Bibliothèque de cartes PDF — stockage local avec IndexedDB.
+const CHART_DB = 'travelManagerCharts';
+const CHART_STORE = 'pdfs';
+const CHART_SECTIONS_KEY = 'travelManagerChartSections';
+
+let chartSection = 'DTTX';
+let currentPdfUrl = null;
+let currentPdfId = null;
+
+function chartSections() {
+  try {
+    const saved = JSON.parse(
+      localStorage.getItem(CHART_SECTIONS_KEY) || '[]'
+    );
+    return [
+      'DTTX',
+      'LFPO',
+      ...saved.filter(
+        name => name && name !== 'DTTX' && name !== 'LFPO'
+      )
+    ];
+  } catch {
+    return ['DTTX', 'LFPO'];
+  }
+}
+
+function saveChartSections(sections) {
+  localStorage.setItem(
+    CHART_SECTIONS_KEY,
+    JSON.stringify([...new Set(['DTTX', 'LFPO', ...sections])])
+  );
+}
+
+function chartDb() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(CHART_DB, 1);
+
+    request.onupgradeneeded = () => {
+      const db = request.result;
+      if (!db.objectStoreNames.contains(CHART_STORE)) {
+        db.createObjectStore(CHART_STORE, { keyPath: 'id' });
+      }
+    };
+
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+}
+
+async function chartRequest(mode, action) {
+  const db = await chartDb();
+
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction(CHART_STORE, mode);
+    const store = transaction.objectStore(CHART_STORE);
+    const request = action(store);
+    let result;
+
+    request.onsuccess = () => {
+      result = request.result;
+    };
+
+    request.onerror = () => reject(request.error);
+
+    transaction.oncomplete = () => {
+      db.close();
+      resolve(result);
+    };
+
+    transaction.onerror = () => {
+      db.close();
+      reject(transaction.error);
+    };
+
+    transaction.onabort = () => {
+      db.close();
+      reject(transaction.error || new Error('Opération annulée'));
+    };
+  });
+}
+
+async function getChartPdfs() {
+  return (await chartRequest('readonly', store => store.getAll())) || [];
+}
+
+function renderChartTabs() {
+  const sections = chartSections();
+
+  $('chart-tabs').innerHTML = sections.map(name => `
+    <button
+      class="chart-tab ${name === chartSection ? 'active' : ''}"
+      data-chart-section="${esc(name)}"
+    >${esc(name)}</button>
+  `).join('');
+
+  $('chart-tabs').querySelectorAll('[data-chart-section]')
+    .forEach(button => {
+      button.addEventListener('click', () => {
+        chartSection = button.dataset.chartSection;
+        renderChartTabs();
+        renderChartList();
+      });
+    });
+
+  $('chart-section-title').textContent = 'Cartes ' + chartSection;
+}
+
+async function renderChartList() {
+  renderChartTabs();
+
+  try {
+    const all = await getChartPdfs();
+    const docs = all
+      .filter(doc => doc.section === chartSection)
+      .sort((a, b) => b.addedAt.localeCompare(a.addedAt));
+
+    $('charts-total').textContent = all.length + ' PDF';
+
+    if (!docs.length) {
+      $('chart-list').innerHTML =
+        '<div class="empty">Aucun PDF dans ce dossier. ' +
+        'Utilise le sélecteur ci-dessus pour en ajouter.</div>';
+      return;
+    }
+
+    $('chart-list').innerHTML = docs.map(doc => `
+      <div class="item pdf-file">
+        <div>
+          <div class="item-title">${esc(doc.name)}</div>
+          <div class="item-meta">
+            Ajouté le ${esc(fmtDate(doc.addedAt))}
+            · ${(doc.size / 1024 / 1024).toFixed(2)} Mo
+          </div>
+        </div>
+        <div class="pdf-actions">
+          <button class="btn primary" data-pdf-view="${esc(doc.id)}">
+            Lire
+          </button>
+          <button class="btn danger" data-pdf-delete="${esc(doc.id)}">
+            Supprimer
+          </button>
+        </div>
+      </div>
+    `).join('');
+
+    $('chart-list').querySelectorAll('[data-pdf-view]')
+      .forEach(button => {
+        button.addEventListener('click', () => {
+          openChartPdf(button.dataset.pdfView);
+        });
+      });
+
+    $('chart-list').querySelectorAll('[data-pdf-delete]')
+      .forEach(button => {
+        button.addEventListener('click', async () => {
+          const doc = docs.find(
+            item => item.id === button.dataset.pdfDelete
+          );
+
+          if (!doc || !confirm(
+            'Supprimer « ' + doc.name + ' » du stockage local ?'
+          )) return;
+
+          await chartRequest(
+            'readwrite',
+            store => store.delete(doc.id)
+          );
+
+          if (currentPdfId === doc.id) closeChartPdf();
+
+          $('chart-message').textContent =
+            'PDF supprimé du stockage local.';
+
+          await renderChartList();
+        });
+      });
+  } catch (error) {
+    $('chart-list').innerHTML =
+      '<div class="notice">Erreur de lecture de la bibliothèque PDF : ' +
+      esc(error.message) + '</div>';
+  }
+}
+
+async function openChartPdf(id) {
+  try {
+    const docs = await getChartPdfs();
+    const doc = docs.find(item => item.id === id);
+
+    if (!doc) throw new Error('Fichier introuvable');
+
+    if (currentPdfUrl) URL.revokeObjectURL(currentPdfUrl);
+
+    currentPdfUrl = URL.createObjectURL(doc.blob);
+    currentPdfId = id;
+
+    $('pdf-viewer-title').textContent = doc.name;
+    $('pdf-viewer').src = currentPdfUrl;
+    $('pdf-viewer').classList.remove('hidden');
+    $('pdf-viewer-empty').classList.add('hidden');
+    $('pdf-open-new').classList.remove('hidden');
+    $('pdf-close').classList.remove('hidden');
+
+    $('pdf-open-new').onclick = () => {
+      window.open(currentPdfUrl, '_blank');
+    };
+
+    $('chart-message').textContent =
+      'PDF ouvert : ' + doc.name +
+      '. Utilise les commandes du lecteur pour zoomer et changer de page.';
+  } catch (error) {
+    $('chart-message').textContent =
+      'Ouverture impossible : ' + error.message;
+  }
+}
+
+function closeChartPdf() {
+  if (currentPdfUrl) URL.revokeObjectURL(currentPdfUrl);
+
+  currentPdfUrl = null;
+  currentPdfId = null;
+
+  $('pdf-viewer').src = 'about:blank';
+  $('pdf-viewer').classList.add('hidden');
+  $('pdf-viewer-empty').classList.remove('hidden');
+  $('pdf-open-new').classList.add('hidden');
+  $('pdf-close').classList.add('hidden');
+  $('pdf-viewer-title').textContent = 'Lecteur PDF';
+}
+
+$('chart-upload').addEventListener('change', async event => {
+  const files = Array.from(event.target.files || []);
+  if (!files.length) return;
+
+  const pdfs = files.filter(file =>
+    file.type === 'application/pdf' ||
+    file.name.toLowerCase().endsWith('.pdf')
+  );
+
+  if (pdfs.length !== files.length) {
+    $('chart-message').textContent =
+      'Certains fichiers ont été ignorés : seuls les PDF sont acceptés.';
+  }
+
+  try {
+    let added = 0;
+
+    for (const file of pdfs) {
+      if (file.size === 0) continue;
+
+      await chartRequest('readwrite', store => store.put({
+        id: uid(),
+        name: file.name,
+        section: chartSection,
+        size: file.size,
+        addedAt: new Date().toISOString(),
+        blob: file
+      }));
+
+      added++;
+    }
+
+    if (added) {
+      $('chart-message').textContent =
+        added + ' PDF ajouté(s) au dossier ' + chartSection + '.';
+    } else if (pdfs.length) {
+      $('chart-message').textContent =
+        'Aucun fichier valide n’a été enregistré.';
+    }
+
+    await renderChartList();
+  } catch (error) {
+    $('chart-message').textContent =
+      'Enregistrement impossible : ' + error.message +
+      '. Vérifie l’espace de stockage disponible.';
+  }
+
+  event.target.value = '';
+});
+
+$('chart-add-section').addEventListener('click', () => {
+  const input = prompt('Nom du nouveau dossier (ex. LFPG) :');
+  if (!input) return;
+
+  const name = input.trim().toUpperCase().slice(0, 24);
+  if (!name) return;
+
+  const sections = chartSections();
+
+  if (!sections.includes(name)) {
+    saveChartSections([...sections, name]);
+  }
+
+  chartSection = name;
+  renderChartTabs();
+  renderChartList();
+
+  $('chart-message').textContent = 'Dossier ' + name + ' sélectionné.';
+});
+
+$('pdf-close').addEventListener('click', closeChartPdf);
+
+document.querySelector('[data-page="charts"]')
+  .addEventListener('click', renderChartList);
+      // PWA lifecycle.
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;$('install-message').textContent='Installation disponible.'});$('install-btn').addEventListener('click',async()=>{if(installPrompt){installPrompt.prompt();await installPrompt.userChoice;installPrompt=null}else $('install-message').textContent='Dans Chrome Android : menu ⋮ → Installer l’application ou Ajouter à l’écran d’accueil.'});$('cache-refresh').addEventListener('click',async()=>{if('serviceWorker'in navigator){const regs=await navigator.serviceWorker.getRegistrations();await Promise.all(regs.map(r=>r.update()));$('sw-status').textContent='Mis à jour';}else $('sw-status').textContent='Non disponible';});function online(){const t=navigator.onLine?'En ligne':'Hors ligne';$('online-status').textContent=t;$('settings-online').textContent=t}window.addEventListener('online',online);window.addEventListener('offline',online);if('serviceWorker'in navigator&&location.protocol!=='file:'){navigator.serviceWorker.register('./sw.js').then(()=>$('sw-status').textContent='Actif').catch(()=>$('sw-status').textContent='Indisponible')}else $('sw-status').textContent='Nécessite HTTPS ou localhost';
 renderAll();if(state.flights[0])showPlan(state.flights[0]);online();
 })();
