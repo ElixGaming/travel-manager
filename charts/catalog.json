@@ -1,14 +1,10 @@
+
 {
-  "DTTX": [
-    {
-      "name": "Carte de DTTX",
-      "url": "charts/DTTX/carte.pdf"
-    }
-  ],
+  "DTTX": [],
   "LFPO": [
     {
-      "name": "Carte d’approche LFPO",
-      "url": "charts/LFPO/approche.pdf"
+      "name": "LFPO — Aerodrome Chart 2",
+      "url": "charts/LFPO/lfpo%20aerodrome%20chart%202.pdf"
     }
   ]
 }
