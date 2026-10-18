@@ -177,7 +177,49 @@ $('simbrief-fetch').addEventListener('click',async()=>{const user=$('simbrief-us
 // Suit simulation controls — illustrative only.
 $('temp-range').addEventListener('input',e=>{state.suit.target=+e.target.value;$('target-value').textContent=e.target.value;$('target-display').textContent=e.target.value;persist()});$('heat-toggle').addEventListener('click',()=>{state.suit.heating=!state.suit.heating;persist()});$('temp-reset').addEventListener('click',()=>{state.suit.temp=21;persist()});document.querySelectorAll('[data-source]').forEach(b=>b.addEventListener('click',()=>{state.suit.source=b.dataset.source;persist()}));$('flight-level').addEventListener('input',e=>{state.suit.flight=+e.target.value;renderSuit();renderHome()});$('flight-level').addEventListener('change',persist);$('emergency-level').addEventListener('input',e=>{state.suit.emergency=+e.target.value;renderSuit();renderHome()});$('emergency-level').addEventListener('change',persist);$('consumption').addEventListener('input',e=>{state.suit.consumption=+e.target.value;$('consumption-value').textContent=Number(e.target.value).toFixed(1);renderSuit()});$('consumption').addEventListener('change',persist);function stopSim(){if(simTimer)clearInterval(simTimer);simTimer=null;state.suit.running=false;persist()}$('sim-start').addEventListener('click',()=>{if(state.suit.source==='external'){alert('Choisis une bouteille pour tester la consommation simulée.');return}if(selectedLevel()<=0){alert('La réserve simulée est vide.');return}if(simTimer)clearInterval(simTimer);state.suit.running=true;persist();simTimer=setInterval(()=>{const key=state.suit.source==='flight'?'flight':'emergency';state.suit[key]=Math.max(0,Math.round((state.suit[key]-state.suit.consumption/60)*1000)/1000);if(state.suit[key]<=0)stopSim();else persist()},1000)});$('sim-stop').addEventListener('click',stopSim);$('suit-reset').addEventListener('click',()=>{if(confirm('Remettre les deux réserves simulées à 100 % ?')){stopSim();state.suit.flight=100;state.suit.emergency=100;persist()}});
 // METAR live data and archive. API access may be blocked by network/browser policy; manual entry remains available.
-async function fetchMetar(){const icao=$('metar-icao').value.trim().toUpperCase();if(!/^[A-Z0-9]{4}$/.test(icao)){$('metar-message').textContent='Saisis un code OACI à 4 caractères.';return}if(!navigator.onLine){$('metar-message').textContent='Tu es hors connexion. Les archives restent consultables, mais les nouveaux METAR nécessitent Internet.';return}$('metar-message').textContent='Recherche météo…';try{const url='https://aviationweather.gov/api/data/metar?ids='+encodeURIComponent(icao)+'&format=json&hours=2';const res=await fetch(url,{headers:{Accept:'application/json'}});if(!res.ok)throw new Error('HTTP '+res.status);const data=await res.json();if(!Array.isArray(data)||!data.length)throw new Error('Aucun METAR récent retourné');const x=data[0];currentMetar={id:uid(),icao:x.icaoId||icao,raw:x.rawOb||JSON.stringify(x),observed:x.reportTime||x.obsTime||'heure inconnue',source:'Aviation Weather Center',decoded:[x.temp!==undefined?'Temp. '+x.temp+' °C':'',x.wspd!==undefined?'Vent '+x.wspd+' kt':'',x.wdir!==undefined?'Direction '+x.wdir+'°':'',x.visib!==undefined?'Visibilité '+x.visib:''].filter(Boolean).join(' · ')};$('metar-current').innerHTML=`<div class="item-title">${esc(currentMetar.icao)}</div><div class="weather">${esc(currentMetar.raw)}</div><div class="item-meta">Observation : ${esc(currentMetar.observed)}</div><div class="item-meta">${esc(currentMetar.decoded)}</div><div class="actions"><button id="save-current-metar" class="btn primary">＋ Archiver ce METAR</button></div>`;$('save-current-metar').addEventListener('click',()=>saveMetar(currentMetar));$('metar-message').textContent='Observation récupérée. Vérifie l’heure et archive-la si nécessaire.'}catch(err){$('metar-message').textContent='Récupération en direct impossible ('+err.message+'). Tu peux saisir un METAR manuellement ou réessayer.'}}
+
+function fetchMetar() {
+  const icao = $('metar-icao').value.trim().toUpperCase();
+
+  if (!/^[A-Z0-9]{4}$/.test(icao)) {
+    $('metar-message').textContent =
+      'Saisis un code OACI à 4 caractères.';
+    return;
+  }
+
+  if (!navigator.onLine) {
+    $('metar-message').textContent =
+      'Une connexion Internet est nécessaire pour afficher le METAR.';
+    return;
+  }
+
+  const url =
+    'https://metar-taf.com/fr/metar/' + encodeURIComponent(icao);
+
+  $('metar-message').textContent =
+    'Chargement du METAR de ' + icao + '…';
+
+  $('metar-current').innerHTML = `
+    <iframe
+      title="METAR ${esc(icao)}"
+      src="${url}"
+      loading="eager"
+      style="
+        display:block;
+        width:100%;
+        height:70vh;
+        min-height:520px;
+        border:1px solid var(--line);
+        border-radius:12px;
+        background:white;
+      ">
+    </iframe>
+  `;
+
+  $('metar-message').textContent =
+    'Page METAR intégrée pour ' + icao + '.';
+}
+
 function saveMetar(m){if(!m)return;state.metars.unshift({...m,id:m.id||uid(),savedAt:new Date().toISOString()});state.metars=state.metars.slice(0,500);persist();$('metar-message').textContent='METAR archivé localement.'} $('metar-fetch').addEventListener('click',fetchMetar);$('metar-save-manual').addEventListener('click',()=>{const icao=$('metar-icao').value.trim().toUpperCase();if(!/^[A-Z0-9]{4}$/.test(icao)){alert('Saisis un code OACI à 4 caractères.');return}const raw=prompt('Colle ici la ligne METAR complète :');if(!raw||!raw.trim())return;currentMetar={id:uid(),icao,raw:raw.trim(),observed:'Heure non vérifiée',source:'Saisie manuelle',decoded:'Observation saisie par l’utilisateur, non vérifiée'};$('metar-current').innerHTML=`<div class="item-title">${esc(icao)}</div><div class="weather">${esc(raw.trim())}</div><div class="item-meta">Saisie manuelle — non vérifiée</div><div class="actions"><button id="save-current-metar" class="btn primary">＋ Archiver ce METAR</button></div>`;$('save-current-metar').addEventListener('click',()=>saveMetar(currentMetar))});
 // Export/restore backup for migration between devices.
 $('backup-export').addEventListener('click',()=>{const blob=new Blob([JSON.stringify({...state,exportedAt:new Date().toISOString(),app:'Travel Manager'} ,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='travel-manager-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)});$('backup-import-btn').addEventListener('click',()=>$('backup-import').click());$('backup-import').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{const x=JSON.parse(await f.text());if(!x.suit||!Array.isArray(x.flights)||!Array.isArray(x.metars))throw new Error('Format de sauvegarde invalide');if(!confirm('Remplacer les données actuelles par cette sauvegarde ?'))return;state=Object.assign(clone(defaults),x,{suit:Object.assign(clone(defaults.suit),x.suit)});persist();alert('Sauvegarde restaurée.')}catch(err){alert('Restauration impossible : '+err.message)}e.target.value=''});$('data-reset').addEventListener('click',()=>{if(confirm('Effacer définitivement les vols, METAR et réglages de cette application sur cet appareil ? Exporte d’abord une sauvegarde si nécessaire.')){stopSim();state=clone(defaults);currentPlan=null;currentMetar=null;persist();$('plan-preview').className='empty';$('plan-preview').textContent='Aucun plan chargé.';$('metar-current').className='empty';$('metar-current').textContent='Aucune observation.'}});
