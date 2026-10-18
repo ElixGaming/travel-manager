@@ -179,6 +179,7 @@ $('temp-range').addEventListener('input',e=>{state.suit.target=+e.target.value;$
 // METAR live data and archive. API access may be blocked by network/browser policy; manual entry remains available.
 
 
+
 function fetchMetar() {
   const icao = $('metar-icao').value.trim().toUpperCase();
 
@@ -195,44 +196,25 @@ function fetchMetar() {
   }
 
   const container = $('metar-current');
+  const url = 'https://metar.live/airport/' +
+    encodeURIComponent(icao);
+
   container.innerHTML = '';
 
-  const widget = document.createElement('div');
-  widget.style.cssText =
-    'display:flex;justify-content:center;width:100%;overflow:auto';
+  const frame = document.createElement('iframe');
+  frame.src = url;
+  frame.title = 'METAR de ' + icao;
+  frame.style.cssText =
+    'width:100%;height:650px;border:0;border-radius:12px;';
+  frame.loading = 'lazy';
+  frame.referrerPolicy = 'strict-origin-when-cross-origin';
 
-  const link = document.createElement('a');
-  link.href = 'https://metar-taf.com/fr/metar/' +
-    encodeURIComponent(icao);
-  link.id = 'metar-widget';
-  link.textContent = 'METAR ' + icao;
-  link.style.cssText =
-    'font-size:18px;font-weight:500;color:#000;' +
-    'width:300px;min-height:435px;display:block;' +
-    'background:#fff;border-radius:12px;padding:12px';
-
-  widget.appendChild(link);
-  container.appendChild(widget);
-
-  const script = document.createElement('script');
-  script.async = true;
-  script.defer = true;
-  script.crossOrigin = 'anonymous';
-  script.src =
-    'https://metar-taf.com/fr/embed-js/' +
-    encodeURIComponent(icao) +
-    '?qnh=hPa&rh=rh&target=metar-widget';
-
-  script.onerror = () => {
-    $('metar-message').textContent =
-      'Impossible de charger le widget. Vérifie Internet et réessaie.';
-  };
-
-  container.appendChild(script);
+  container.appendChild(frame);
 
   $('metar-message').textContent =
-    'Chargement du widget METAR pour ' + icao + '…';
+    'Chargement des informations météo pour ' + icao + '…';
 }
+
 
 function saveMetar(m){if(!m)return;state.metars.unshift({...m,id:m.id||uid(),savedAt:new Date().toISOString()});state.metars=state.metars.slice(0,500);persist();$('metar-message').textContent='METAR archivé localement.'} $('metar-fetch').addEventListener('click',fetchMetar);$('metar-save-manual').addEventListener('click',()=>{const icao=$('metar-icao').value.trim().toUpperCase();if(!/^[A-Z0-9]{4}$/.test(icao)){alert('Saisis un code OACI à 4 caractères.');return}const raw=prompt('Colle ici la ligne METAR complète :');if(!raw||!raw.trim())return;currentMetar={id:uid(),icao,raw:raw.trim(),observed:'Heure non vérifiée',source:'Saisie manuelle',decoded:'Observation saisie par l’utilisateur, non vérifiée'};$('metar-current').innerHTML=`<div class="item-title">${esc(icao)}</div><div class="weather">${esc(raw.trim())}</div><div class="item-meta">Saisie manuelle — non vérifiée</div><div class="actions"><button id="save-current-metar" class="btn primary">＋ Archiver ce METAR</button></div>`;$('save-current-metar').addEventListener('click',()=>saveMetar(currentMetar))});
 // Export/restore backup for migration between devices.
