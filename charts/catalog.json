@@ -1,0 +1,14 @@
+{
+  "DTTX": [
+    {
+      "name": "Carte de DTTX",
+      "url": "charts/DTTX/carte.pdf"
+    }
+  ],
+  "LFPO": [
+    {
+      "name": "Carte d’approche LFPO",
+      "url": "charts/LFPO/approche.pdf"
+    }
+  ]
+}
